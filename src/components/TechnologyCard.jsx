@@ -1,53 +1,38 @@
 import React from 'react'
-import './TechnologyCard.css';
+import './TechnologyCard.css'
 
 function TechnologyCard({ title, description, status }) {
-  const getStatusClass = () => {
+  // Определяем иконку и текст для статуса
+  const getStatusConfig = () => {
     switch (status) {
       case 'completed':
-        return 'status-completed';
+        return { icon: '✓', text: 'Изучено', color: '#4caf50' }
       case 'in-progress':
-        return 'status-in-progress';
+        return { icon: '⌛', text: 'В процессе', color: '#ff9800' }
       case 'not-started':
-        return 'status-not-started';
+        return { icon: '⏳', text: 'Не начато', color: '#9e9e9e' }
       default:
-        return '';
+        return { icon: '?', text: status, color: '#9e9e9e' }
     }
-  };
+  }
 
-  const getStatusText = () => {
-    switch (status) {
-      case 'completed':
-        return 'Изучено ✅';
-      case 'in-progress':
-        return 'В процессе ⌛';
-      case 'not-started':
-        return 'Не начато 🔄';
-      default:
-        return status;
-    }
-  };
+  const statusConfig = getStatusConfig()
 
   return (
-    <div className={`technology-card ${getStatusClass()}`}>
-      <div className="card-header">
-        <h3 className="card-title">{title}</h3>
-        <span className="card-status">{getStatusText()}</span>
-      </div>
-      <p className="card-description">{description}</p>
-      <div className="card-footer">
-        <div className="progress-indicator">
-          <div 
-            className="progress-bar" 
-            style={{
-              width: status === 'completed' ? '100%' : 
-                     status === 'in-progress' ? '50%' : '0%'
-            }}
-          ></div>
+    <div className={`technology-card status-${status}`}>
+      <div className="status-section">
+        <div className="status-icon" style={{ backgroundColor: statusConfig.color + '20' }}>
+          {statusConfig.icon}
         </div>
+        <p>{statusConfig.text}</p>
+      </div>
+      
+      <div className="tech-info">
+        <h3>{title}</h3>
+        <p>{description}</p>
       </div>
     </div>
-  );
+  )
 }
 
-export default TechnologyCard;
+export default TechnologyCard
