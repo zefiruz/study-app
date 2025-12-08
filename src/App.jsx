@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.css'
 import TechnologyCard from './components/TechnologyCard'
 import ProgressHeader from './components/ProgressHeader'
@@ -7,57 +7,91 @@ import Filters from './components/Filters'
 import Counter from './components/Counter'
 import RegistrationForm from './components/RegistrationForm'
 import ColorPicker from './components/ColorPicker'
+import TechnologyNotes from './components/TechnologyNotes'
 
 function App() {
-  // Состояние для технологий
-  const [technologies, setTechnologies] = useState([
+  // Список технологий для изучения
+  const initialTechnologies = [
     { 
       id: 1, 
       title: 'React Components', 
       description: 'Изучение функциональных и классовых компонентов, жизненного цикла.', 
-      status: 'not-started' 
+      status: 'not-started',
+      notes: '' 
     },
     { 
       id: 2, 
       title: 'JSX Syntax', 
       description: 'Освоение синтаксиса JSX, работа с выражениями JavaScript внутри разметки.', 
-      status: 'not-started' 
+      status: 'not-started',
+      notes: ''
     },
     { 
       id: 3, 
       title: 'State Management', 
       description: 'Работа с состоянием компонентов через useState.', 
-      status: 'not-started' 
+      status: 'not-started',
+      notes: ''
     },
     { 
       id: 4, 
       title: 'React Hooks', 
       description: 'Изучение хуков: useEffect, useContext, useReducer.', 
-      status: 'not-started' 
+      status: 'not-started',
+      notes: ''
     },
     { 
       id: 5, 
       title: 'React Router', 
       description: 'Настройка маршрутизации в React-приложениях.', 
-      status: 'not-started' 
+      status: 'not-started',
+      notes: ''
     },
     { 
       id: 6, 
       title: 'API Integration', 
       description: 'Работа с HTTP-запросами, интеграция с REST API.', 
-      status: 'not-started' 
+      status: 'not-started',
+      notes: ''
     },
-  ])
+  ]
 
-  // Состояние для активного фильтра
+  // Храним все технологии
+  const [technologies, setTechnologies] = useState(initialTechnologies)
+  // Какой фильтр выбран
   const [activeFilter, setActiveFilter] = useState('all')
+  // Текст для поиска
+  const [searchQuery, setSearchQuery] = useState('')
 
-  // Функция для изменения статуса технологии
+  // Когда страница загружается, берем данные из localStorage
+  useEffect(() => {
+    const savedData = localStorage.getItem('techTrackerData')
+    if (savedData) {
+      try {
+        const parsedData = JSON.parse(savedData)
+        // На всякий случай проверяем, чтобы у всех были заметки
+        const validatedData = parsedData.map(tech => ({
+          ...tech,
+          notes: tech.notes || ''
+        }))
+        setTechnologies(validatedData)
+      } catch (error) {
+        console.log('Не получилось загрузить данные')
+      }
+    }
+  }, [])
+
+  // Сохраняем в localStorage когда меняются технологии
+  useEffect(() => {
+    localStorage.setItem('techTrackerData', JSON.stringify(technologies))
+  }, [technologies])
+
+  // Меняем статус технологии при клике
   const updateTechnologyStatus = (id) => {
     setTechnologies(prevTech => 
       prevTech.map(tech => {
         if (tech.id === id) {
-          // Циклическое изменение статуса: not-started → in-progress → completed → not-started
+          // Меняем статус по кругу: не начато -> в процессе -> выполнено -> не начато
           let newStatus
           switch (tech.status) {
             case 'not-started':
@@ -80,21 +114,30 @@ function App() {
     )
   }
 
-  // Функция для отметки всех как выполненных
+  // Обновляем заметки к технологии
+  const updateTechnologyNotes = (techId, newNotes) => {
+    setTechnologies(prevTech =>
+      prevTech.map(tech =>
+        tech.id === techId ? { ...tech, notes: newNotes } : tech
+      )
+    )
+  }
+
+  // Отметить все как выполненные
   const markAllAsCompleted = () => {
     setTechnologies(prevTech => 
       prevTech.map(tech => ({ ...tech, status: 'completed' }))
     )
   }
 
-  // Функция для сброса всех статусов
+  // Сбросить все статусы
   const resetAllStatuses = () => {
     setTechnologies(prevTech => 
       prevTech.map(tech => ({ ...tech, status: 'not-started' }))
     )
   }
 
-  // Функция для случайного выбора технологии
+  // Выбрать случайную технологию для изучения
   const chooseRandomTechnology = () => {
     const notStartedTech = technologies.filter(tech => tech.status === 'not-started')
     
@@ -105,7 +148,6 @@ function App() {
     
     const randomTech = notStartedTech[Math.floor(Math.random() * notStartedTech.length)]
     
-    // Обновляем статус выбранной технологии на "in-progress"
     setTechnologies(prevTech => 
       prevTech.map(tech => 
         tech.id === randomTech.id ? { ...tech, status: 'in-progress' } : tech
@@ -115,8 +157,14 @@ function App() {
     alert(`Выбрана технология: ${randomTech.title}`)
   }
 
-  // Фильтрация технологий по статусу
-  const filteredTechnologies = technologies.filter(tech => {
+  // Ищем технологии по тексту
+  const searchFilteredTechnologies = technologies.filter(tech =>
+    tech.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    tech.description.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+
+  // Фильтруем еще и по статусу
+  const filteredTechnologies = searchFilteredTechnologies.filter(tech => {
     switch (activeFilter) {
       case 'not-started':
         return tech.status === 'not-started'
@@ -132,13 +180,11 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>📚 Трекер изучения технологий v2.0</h1>
-        <p>Интерактивная версия с управлением состоянием</p>
+        <h1>Трекер изучения технологий</h1>
       </header>
 
-      {/* Примеры из теоретической части */}
       <div className="examples-section">
-        <h2>Теоретические примеры (useState)</h2>
+        <h2>Примеры из теории (useState)</h2>
         <div className="examples-grid">
           <Counter />
           <RegistrationForm />
@@ -146,9 +192,8 @@ function App() {
         </div>
       </div>
 
-      {/* Основное приложение - трекер технологий */}
       <div className="tracker-section">
-        <h2>Интерактивный трекер технологий</h2>
+        <h2>Трекер технологий</h2>
         
         <ProgressHeader technologies={technologies} />
         
@@ -166,32 +211,65 @@ function App() {
             technologies={technologies}
           />
         </div>
+
+        <div className="search-section">
+          <h2>Поиск технологий</h2>
+          <div className="search-box">
+            <input
+              type="text"
+              placeholder="Поиск по названию или описанию..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="search-input"
+            />
+            <div className="search-info">
+              <span className="results-count">
+                Найдено: {searchFilteredTechnologies.length} из {technologies.length}
+              </span>
+              {searchQuery && (
+                <button 
+                  className="clear-search-btn"
+                  onClick={() => setSearchQuery('')}
+                >
+                  Очистить
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
         
         <div className="technologies-container">
           <h3 className="section-title">
-            Дорожная карта изучения 
+            Список технологий 
             <span className="filter-indicator">
               ({activeFilter === 'all' ? 'Все' : 
                 activeFilter === 'not-started' ? 'Не начатые' :
-                activeFilter === 'in-progress' ? 'В процессе' : 'Выполненные'})
+                activeFilter === 'in-progress' ? 'В процессе' : 'Завершенные'})
             </span>
           </h3>
           
           {filteredTechnologies.length === 0 ? (
             <div className="no-results">
-              <p>Нет технологий с выбранным фильтром.</p>
+              <p>Нет технологий по этому фильтру</p>
             </div>
           ) : (
             <div className="technologies-list">
               {filteredTechnologies.map(tech => (
-                <TechnologyCard
-                  key={tech.id}
-                  id={tech.id}
-                  title={tech.title}
-                  description={tech.description}
-                  status={tech.status}
-                  onStatusChange={updateTechnologyStatus}
-                />
+                <div key={tech.id} className="technology-card-wrapper">
+                  <TechnologyCard
+                    id={tech.id}
+                    title={tech.title}
+                    description={tech.description}
+                    status={tech.status}
+                    onStatusChange={updateTechnologyStatus}
+                  />
+                  
+                  <TechnologyNotes
+                    notes={tech.notes}
+                    onNotesChange={updateTechnologyNotes}
+                    techId={tech.id}
+                  />
+                </div>
               ))}
             </div>
           )}
@@ -199,10 +277,12 @@ function App() {
       </div>
       
       <footer className="app-footer">
-        <p>Практическое занятие 20 • Управление состоянием в React • useState</p>
         <p>Всего технологий: {technologies.length} • 
           Изучено: {technologies.filter(t => t.status === 'completed').length} • 
           В процессе: {technologies.filter(t => t.status === 'in-progress').length}
+        </p>
+        <p className="localstorage-info">
+          Заметок сохранено: {technologies.filter(t => t.notes && t.notes.length > 0).length}
         </p>
       </footer>
     </div>
