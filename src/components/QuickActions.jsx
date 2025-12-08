@@ -1,53 +1,84 @@
-import React from 'react'
-import './QuickActions.css'
+import React, { useState } from 'react'; // Добавь React
+import Modal from './Modal';
+import './QuickActions.css';
 
-function QuickActions({ onMarkAllCompleted, onResetAll, onRandomSelect, technologies }) {
-  const notStartedCount = technologies.filter(t => t.status === 'not-started').length
-  
+function QuickActions({ onMarkAllCompleted, onResetAll, onRandomSelect, technologies }) { 
+  const [showExportModal, setShowExportModal] = useState(false);
+
+  // Экспорт данных
+  const handleExport = () => {
+    const data = {
+      exportedAt: new Date().toISOString(),
+      totalTechnologies: technologies.length,
+      completed: technologies.filter(t => t.status === 'completed').length,
+      technologies: technologies
+    };
+    
+    const dataStr = JSON.stringify(data, null, 2);
+    console.log('Экспортированные данные:', dataStr);
+    
+    setShowExportModal(true);
+  };
+
   return (
     <div className="quick-actions">
       <h3>Быстрые действия</h3>
-      
-      <div className="actions-grid">
+      <div className="action-buttons">
         <button 
-          className="action-btn mark-all-btn"
-          onClick={onMarkAllCompleted}
-          title="Отметить все технологии как изученные"
+          onClick={onMarkAllCompleted} 
+          className="action-btn success-btn"
         >
-          <span className="action-icon">✓</span>
-          <span className="action-text">Все выполнены</span>
+          ✓ Отметить все как выполненные
         </button>
         
         <button 
-          className="action-btn reset-all-btn"
-          onClick={onResetAll}
-          title="Сбросить статусы всех технологий"
+          onClick={onResetAll} 
+          className="action-btn warning-btn"
         >
-          <span className="action-icon">↺</span>
-          <span className="action-text">Сбросить все</span>
+          ⟳ Сбросить все статусы
         </button>
         
+        {onRandomSelect && (
+          <button 
+            onClick={onRandomSelect} 
+            className="action-btn random-btn"
+          >
+            🎲 Выбрать случайную
+          </button>
+        )}
+        
         <button 
-          className="action-btn random-btn"
-          onClick={onRandomSelect}
-          disabled={notStartedCount === 0}
-          title={notStartedCount === 0 ? 'Нет не начатых технологий' : 'Выбрать случайную не начатую технологию'}
+          onClick={handleExport} 
+          className="action-btn info-btn"
         >
-          <span className="action-icon">🎲</span>
-          <span className="action-text">
-            Случайный выбор
-            <span className="count-badge">{notStartedCount}</span>
-          </span>
+          ⬇ Экспорт данных
         </button>
       </div>
-      
-      {notStartedCount === 0 && (
-        <div className="warning-message">
-          Все технологии уже начаты или завершены. Невозможно выбрать новую.
+
+      {/* Модалка для экспорта */}
+      <Modal
+        isOpen={showExportModal}
+        onClose={() => setShowExportModal(false)}
+        title="Экспорт данных"
+      >
+        <div className="export-content">
+          <p>Данные успешно подготовлены для экспорта!</p>
+          <p>Всего технологий: <strong>{technologies.length}</strong></p>
+          <p>Выполнено: <strong>{technologies.filter(t => t.status === 'completed').length}</strong></p>
+          <p>Посмотрите консоль разработчика (F12) чтобы увидеть данные.</p>
+          
+          <div className="modal-actions">
+            <button 
+              onClick={() => setShowExportModal(false)}
+              className="close-modal-btn"
+            >
+              Закрыть
+            </button>
+          </div>
         </div>
-      )}
+      </Modal>
     </div>
-  )
+  );
 }
 
-export default QuickActions
+export default QuickActions;

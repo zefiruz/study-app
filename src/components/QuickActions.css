@@ -1,81 +1,127 @@
+/* QuickActions.css */
 .quick-actions {
   background: white;
-  border: 1px solid #e9ecef;
+  border: 1px solid #dee2e6;
   border-radius: 8px;
-  padding: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .quick-actions h3 {
-  margin: 0 0 15px 0;
   color: #495057;
-  font-size: 1.1rem;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  text-align: center;
 }
 
-.actions-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+.action-buttons {
+  display: flex;
+  flex-wrap: wrap;
   gap: 10px;
+  justify-content: center;
 }
 
 .action-btn {
-  padding: 10px;
+  padding: 10px 15px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
+  min-width: 180px;
 }
 
-.action-btn:hover:not(:disabled) {
+.action-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
 }
 
-.mark-all-btn {
-  background: #45b7d1;
+.success-btn {
+  background: #4CAF50;
   color: white;
 }
 
-.reset-all-btn {
-  background: #ff6b6b;
+.success-btn:hover {
+  background: #45a049;
+}
+
+.warning-btn {
+  background: #FF9800;
   color: white;
+}
+
+.warning-btn:hover {
+  background: #e68900;
 }
 
 .random-btn {
-  background: #4ecdc4;
+  background: #9C27B0;
   color: white;
 }
 
-.action-icon {
-  font-size: 1.5rem;
-  margin-bottom: 5px;
+.random-btn:hover {
+  background: #7b1fa2;
 }
 
-.count-badge {
-  background: rgba(255,255,255,0.3);
-  padding: 2px 8px;
-  border-radius: 10px;
-  font-size: 0.8rem;
-  margin-left: 5px;
+.info-btn {
+  background: #2196F3;
+  color: white;
 }
 
-.warning-message {
-  margin-top: 10px;
-  padding: 8px;
-  background: #fff3e0;
-  border: 1px solid #ffcc80;
+.info-btn:hover {
+  background: #0b7dda;
+}
+
+/* Контент модалки */
+.export-content {
+  line-height: 1.6;
+  color: #333;
+}
+
+.export-content p {
+  margin: 10px 0;
+}
+
+.export-content strong {
+  color: #4a6fa5;
+}
+
+.modal-actions {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.close-modal-btn {
+  padding: 8px 16px;
+  background: #6c757d;
+  color: white;
+  border: none;
   border-radius: 4px;
-  color: #ef6c00;
-  font-size: 0.8rem;
-  text-align: center;
+  cursor: pointer;
+  font-size: 0.9rem;
 }
 
+.close-modal-btn:hover {
+  background: #5a6268;
+}
+
+/* Адаптивность */
 @media (max-width: 768px) {
-  .actions-grid {
-    grid-template-columns: 1fr;
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .action-btn {
+    width: 100%;
+  }
+  
+  .quick-actions {
+    padding: 15px;
   }
 }

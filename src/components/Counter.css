@@ -1,31 +1,15 @@
-.counter {
+.counter, .registration-form, .color-picker,
+.quick-actions, .filters, .progress-header {
   background: white;
-  border: 1px solid #e9ecef;
+  border: 1px solid #dee2e6;
   border-radius: 8px;
   padding: 15px;
-  text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
-.counter h3 {
-  margin: 0 0 15px 0;
+.counter h3, .registration-form h3, .color-picker h3,
+.quick-actions h3, .filters h3, .progress-header h2 {
   color: #495057;
-}
-
-.counter-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
   margin-bottom: 15px;
+  font-size: 1.1rem;
 }
-
-.counter-btn {
-  padding: 8px 15px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
-}
-
-.decrement { background: #ff6b6b; color: white; }
-.reset { background: #95a5a6; color: white; }
-.increment { background: #4ecdc4; color: white; }

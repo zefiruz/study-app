@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import './TechnologyNotes.css'
 
 function TechnologyNotes({ notes, onNotesChange, techId }) {
   const [localNotes, setLocalNotes] = useState(notes || '')

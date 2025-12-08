@@ -1,0 +1,45 @@
+.notes-section {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+}
+
+.notes-section h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #495057;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.notes-textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+  resize: vertical;
+  min-height: 80px;
+  margin-bottom: 8px;
+  background-color: white;
+}
+
+.notes-textarea:focus {
+  outline: none;
+  border-color: #4a6fa5;
+  box-shadow: 0 0 0 2px rgba(74, 111, 165, 0.2);
+}
+
+.notes-textarea::placeholder {
+  color: #adb5bd;
+}
+
+.notes-hint {
+  font-size: 13px;
+  color: #6c757d;
+  font-style: italic;
+}

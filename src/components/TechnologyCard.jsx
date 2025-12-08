@@ -1,68 +1,54 @@
 import React from 'react'
 import './TechnologyCard.css'
 
-function TechnologyCard({ id, title, description, status, onStatusChange }) {
-  // Функция для изменения статуса при клике
+function TechnologyCard({ id, title, description, status, onStatusChange, category }) {
   const handleClick = () => {
-    if (onStatusChange) {
-      onStatusChange(id)
-    }
+    onStatusChange(id);
   }
 
-  // Определяем иконку и текст для статуса
-  const getStatusConfig = () => {
-    switch (status) {
-      case 'completed':
-        return { 
-          icon: '✓', 
-          text: 'Изучено', 
-          color: '#45b7d1',
-          nextStatus: 'not-started'
-        }
-      case 'in-progress':
-        return { 
-          icon: '⌛', 
-          text: 'В процессе', 
-          color: '#4ecdc4',
-          nextStatus: 'completed'
-        }
-      case 'not-started':
-      default:
-        return { 
-          icon: '⏳', 
-          text: 'Не начато', 
-          color: '#ff6b6b',
-          nextStatus: 'in-progress'
-        }
-    }
+  // Цвета для статусов
+  const statusColors = {
+    'not-started': '#ff6b6b',
+    'in-progress': '#ffa726',
+    'completed': '#4caf50'
   }
 
-  const statusConfig = getStatusConfig()
+  const statusText = {
+    'not-started': 'Не начато',
+    'in-progress': 'В процессе',
+    'completed': 'Выполнено'
+  }
+
+  const categoryText = {
+    'frontend': 'Фронтенд',
+    'backend': 'Бэкенд'
+  }
 
   return (
-    <div 
-      className={`technology-card status-${status.replace('-', '')}`}
-      onClick={handleClick}
-      title={`Кликните для изменения статуса. Следующий статус: ${statusConfig.nextStatus}`}
-    >
-      <div className="status-section">
-        <div 
-          className="status-icon" 
-          style={{ 
-            backgroundColor: `${statusConfig.color}20`,
-            border: `2px solid ${statusConfig.color}`
-          }}
-        >
-          {statusConfig.icon}
+    <div className="technology-card">
+      <div className="card-header">
+        <div className="title-row">
+          <h3>{title}</h3>
+          {category && (
+            <span className={`category-badge category-${category}`}>
+              {categoryText[category] || category}
+            </span>
+          )}
         </div>
-        <p className="status-text">{statusConfig.text}</p>
-        <p className="status-hint">Кликните для изменения</p>
+        <button 
+          className="status-button"
+          onClick={handleClick}
+          style={{ backgroundColor: statusColors[status] }}
+        >
+          {statusText[status]}
+        </button>
       </div>
       
-      <div className="tech-info">
-        <h3>{title}</h3>
-        <p>{description}</p>
-        <div className="tech-id">ID: {id}</div>
+      <p className="description">{description}</p>
+      
+      <div className="status-indicator">
+        <div className="status-dot" style={{ backgroundColor: statusColors[status] }} />
+        <span>{statusText[status]}</span>
       </div>
     </div>
   )

@@ -1,70 +1,94 @@
+/* TechnologyCard.css */
 .technology-card {
-  display: flex;
-  gap: 15px;
-  background: white;
-  border: 1px solid #e9ecef;
-  border-radius: 8px;
+  background: rgb(238, 251, 255);
+  border-left: 4px solid #85c2ff;
+  border-radius: 6px;
   padding: 15px;
-  margin-bottom: 10px;
-  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
   transition: all 0.2s;
+  cursor: pointer;
+  margin-bottom: 15px;
 }
 
 .technology-card:hover {
-  border-color: #4a6fa5;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
 }
 
-.status-section {
-  min-width: 80px;
-  text-align: center;
-  padding: 10px;
-  border-radius: 6px;
-  background: #f8f9fa;
-}
-
-.status-icon {
-  font-size: 24px;
-  margin-bottom: 5px;
-}
-
-.status-text {
-  font-size: 0.8rem;
-  font-weight: 600;
-  margin: 0;
-}
-
-.status-hint {
-  font-size: 0.7rem;
-  color: #6c757d;
-  margin: 5px 0 0 0;
-  font-style: italic;
-}
-
-.tech-info {
-  flex: 1;
-}
-
-.tech-info h3 {
-  margin: 0 0 8px 0;
-  color: #2c3e50;
+.technology-card h3 {
+  margin: 0 0 10px 0;
+  color: #333;
   font-size: 1.1rem;
 }
 
-.tech-info p {
-  margin: 0 0 10px 0;
-  color: #495057;
+.technology-card .description {
+  color: #666;
+  margin-bottom: 15px;
   font-size: 0.9rem;
   line-height: 1.4;
 }
 
-.tech-id {
-  font-size: 0.8rem;
-  color: #868e96;
-  margin-top: 5px;
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
 }
 
-/* Цвета статусов */
-.status-notstarted .status-text { color: #ff6b6b; }
-.status-inprogress .status-text { color: #4ecdc4; }
-.status-completed .status-text { color: #45b7d1; }
+.status-button {
+  background: #4a6fa5;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+/* Статусы */
+.status-notstarted { 
+  border-left-color: #ff6b6b !important; 
+}
+
+.status-inprogress { 
+  border-left-color: #4ecdc4 !important; 
+}
+
+.status-completed { 
+  border-left-color: #45b7d1 !important; 
+}
+
+/* Категории */
+.category-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.category-frontend {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.category-backend {
+  background: #f3e5f5;
+  color: #7b1fa2;
+}
