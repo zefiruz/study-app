@@ -1,15 +1,14 @@
 .counter {
   background: white;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 15px;
   text-align: center;
 }
 
 .counter h3 {
   margin: 0 0 15px 0;
-  color: #333;
-  font-size: 1.3em;
+  color: #495057;
 }
 
 .counter-buttons {
@@ -17,51 +16,16 @@
   justify-content: center;
   gap: 10px;
   margin-bottom: 15px;
-  flex-wrap: wrap;
 }
 
 .counter-btn {
-  padding: 10px 20px;
+  padding: 8px 15px;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
-  font-size: 1em;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  min-width: 80px;
+  font-size: 0.9rem;
 }
 
-.counter-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.counter-btn:active {
-  transform: translateY(0);
-}
-
-.counter-btn.decrement {
-  background: linear-gradient(135deg, #ff6b6b, #ff5252);
-  color: white;
-}
-
-.counter-btn.reset {
-  background: linear-gradient(135deg, #95a5a6, #7f8c8d);
-  color: white;
-}
-
-.counter-btn.increment {
-  background: linear-gradient(135deg, #4ecdc4, #3db8af);
-  color: white;
-}
-
-.counter-info {
-  margin: 15px 0 0 0;
-  color: #666;
-  font-size: 0.9em;
-}
-
-.counter-info strong {
-  color: #333;
-  font-size: 1.2em;
-}
+.decrement { background: #ff6b6b; color: white; }
+.reset { background: #95a5a6; color: white; }
+.increment { background: #4ecdc4; color: white; }

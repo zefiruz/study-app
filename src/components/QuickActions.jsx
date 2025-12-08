@@ -6,7 +6,7 @@ function QuickActions({ onMarkAllCompleted, onResetAll, onRandomSelect, technolo
   
   return (
     <div className="quick-actions">
-      <h3>⚡ Быстрые действия</h3>
+      <h3>Быстрые действия</h3>
       
       <div className="actions-grid">
         <button 
@@ -43,7 +43,7 @@ function QuickActions({ onMarkAllCompleted, onResetAll, onRandomSelect, technolo
       
       {notStartedCount === 0 && (
         <div className="warning-message">
-          ⚠️ Все технологии уже начаты или завершены. Невозможно выбрать новую.
+          Все технологии уже начаты или завершены. Невозможно выбрать новую.
         </div>
       )}
     </div>

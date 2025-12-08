@@ -18,7 +18,7 @@ function Filters({ activeFilter, onFilterChange, technologies }) {
 
   return (
     <div className="filters">
-      <h3>🔍 Фильтры по статусу</h3>
+      <h3>Фильтры по статусу</h3>
       
       <div className="filters-grid">
         {filters.map(filter => (
