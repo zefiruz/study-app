@@ -1,0 +1,89 @@
+.quick-actions {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.quick-actions h3 {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 1.3em;
+}
+
+.actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1em;
+  font-weight: 500;
+}
+
+.action-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.mark-all-btn {
+  background: linear-gradient(135deg, #45b7d1, #34a0c7);
+  color: white;
+}
+
+.reset-all-btn {
+  background: linear-gradient(135deg, #ff6b6b, #ff5252);
+  color: white;
+}
+
+.random-btn {
+  background: linear-gradient(135deg, #4ecdc4, #3db8af);
+  color: white;
+  position: relative;
+}
+
+.action-icon {
+  font-size: 2em;
+  margin-bottom: 8px;
+}
+
+.action-text {
+  font-size: 0.9em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.count-badge {
+  background: rgba(255, 255, 255, 0.3);
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.8em;
+}
+
+.warning-message {
+  margin-top: 15px;
+  padding: 10px;
+  background: #fff3e0;
+  border: 1px solid #ffcc80;
+  border-radius: 5px;
+  color: #ef6c00;
+  font-size: 0.9em;
+  text-align: center;
+}

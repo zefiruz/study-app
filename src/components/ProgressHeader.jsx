@@ -9,9 +9,22 @@ function ProgressHeader({ technologies }) {
   
   const completionPercentage = total > 0 ? Math.round((completed / total) * 100) : 0
 
+  // Определяем "самую популярную" категорию (по количеству)
+  const getMostPopularStatus = () => {
+    const counts = { completed, 'in-progress': inProgress, 'not-started': notStarted }
+    return Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b)
+  }
+
+  const popularStatus = getMostPopularStatus()
+  const popularStatusText = {
+    'completed': 'выполненные',
+    'in-progress': 'в процессе',
+    'not-started': 'не начатые'
+  }[popularStatus]
+
   return (
     <div className="progress-header">
-      <h2>📚 Трекер изучения технологий</h2>
+      <h2>📊 Статистика изучения</h2>
       
       <div className="stats-container">
         <div className="stat-item">
@@ -20,24 +33,24 @@ function ProgressHeader({ technologies }) {
         </div>
         
         <div className="stat-item">
-          <div className="stat-value" style={{ color: '#a5d6a7' }}>{completed}</div>
+          <div className="stat-value completed-stat">{completed}</div>
           <div className="stat-label">Изучено</div>
         </div>
         
         <div className="stat-item">
-          <div className="stat-value" style={{ color: '#ffcc80' }}>{inProgress}</div>
+          <div className="stat-value in-progress-stat">{inProgress}</div>
           <div className="stat-label">В процессе</div>
         </div>
         
         <div className="stat-item">
-          <div className="stat-value" style={{ color: '#b0bec5' }}>{notStarted}</div>
+          <div className="stat-value not-started-stat">{notStarted}</div>
           <div className="stat-label">Не начато</div>
         </div>
       </div>
       
       <div className="progress-section">
         <div className="progress-info">
-          <span>Общий прогресс:</span>
+          <span>Общий прогресс изучения:</span>
           <span className="percentage">{completionPercentage}%</span>
         </div>
         
@@ -45,21 +58,21 @@ function ProgressHeader({ technologies }) {
           <div 
             className="main-progress-bar" 
             style={{ width: `${completionPercentage}%` }}
-          />
+          >
+            <div className="progress-fill"></div>
+          </div>
         </div>
         
-        <div className="progress-legend">
-          <div className="legend-item">
-            <span className="legend-color completed-color" />
-            <span>Изучено ({completed})</span>
+        <div className="additional-stats">
+          <div className="stat-row">
+            <span>Самый частый статус:</span>
+            <span className="stat-value-small">{popularStatusText} ({technologies.filter(t => t.status === popularStatus).length})</span>
           </div>
-          <div className="legend-item">
-            <span className="legend-color in-progress-color" />
-            <span>В процессе ({inProgress})</span>
-          </div>
-          <div className="legend-item">
-            <span className="legend-color not-started-color" />
-            <span>Не начато ({notStarted})</span>
+          <div className="stat-row">
+            <span>Темп изучения:</span>
+            <span className="stat-value-small">
+              {inProgress > 0 ? 'Активный' : completed > 0 ? 'Завершён' : 'Не начат'}
+            </span>
           </div>
         </div>
       </div>

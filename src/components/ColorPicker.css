@@ -1,0 +1,77 @@
+.color-picker {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.color-picker h3 {
+  margin: 0 0 20px 0;
+  color: #333;
+  font-size: 1.3em;
+}
+
+.color-display {
+  width: 200px;
+  height: 100px;
+  margin: 0 auto 20px;
+  border: 2px solid #333;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.color-display p {
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.color-controls {
+  margin-top: 20px;
+}
+
+.color-controls h4 {
+  margin: 0 0 15px 0;
+  color: #666;
+  font-size: 1em;
+}
+
+.color-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.color-buttons button {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.color-buttons button:hover {
+  transform: scale(1.1);
+  border-color: #333;
+}
+
+.color-buttons button.active {
+  border: 3px solid #333;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
