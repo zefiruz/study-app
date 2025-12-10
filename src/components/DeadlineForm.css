@@ -1,0 +1,63 @@
+/* src/components/DeadlineForm.css */
+
+.deadline-form {
+    background-color: var(--bg-card);
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.deadline-form h3 {
+    color: var(--accent);
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+}
+
+.form-tip {
+    margin-bottom: 20px;
+    color: var(--text-secondary);
+    font-size: 0.9em;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--text-main);
+}
+
+.form-group input[type="date"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.form-group input[aria-invalid="true"] {
+    border-color: var(--error-red, #ff6b6b); 
+    box-shadow: 0 0 0 1px var(--error-red, #ff6b6b);
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.error-message {
+    display: block;
+    margin-top: 5px;
+    color: var(--error-red, #ff6b6b); 
+    font-size: 0.85em;
+    font-weight: bold;
+}

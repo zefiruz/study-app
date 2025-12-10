@@ -1,5 +1,6 @@
 // src/pages/Settings.jsx
 import React from 'react';
+import DeadlineForm from '../components/DeadlineForm'; 
 
 import './Settings.css'; 
 
@@ -7,7 +8,13 @@ function Settings() {
 
     return (
         <div className="page">
-            <h1>Настройки приложения</h1>
+            <div className="page-header">
+                <h1>Настройки приложения</h1>
+            </div>
+
+            <div className="settings-section">
+                <DeadlineForm />
+            </div>
 
             <div className="settings-section">
                 <h2>Общие настройки (Заглушки)</h2>
