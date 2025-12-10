@@ -1,14 +1,13 @@
 // src/components/Navigation.jsx
 import { Link, useLocation } from 'react-router-dom';
 import React from 'react';
-import './Navigation.css'; // <-- Импорт стилей
+import './Navigation.css';
 
 function Navigation() {
   const location = useLocation();
 
   const getClassName = (path) => {
-    // Простая проверка для подсветки активной ссылки
-    const currentPath = location.pathname.replace(/\/$/, ''); // Удаляем слэш в конце для корректного сравнения
+    const currentPath = location.pathname.replace(/\/$/, ''); 
     const targetPath = path.replace(/\/$/, '');
 
     return currentPath === targetPath ? 'nav-link active' : 'nav-link';

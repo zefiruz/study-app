@@ -9,27 +9,30 @@ const initialTechnologies = [
   { id: 6, title: 'MongoDB', description: 'Работа с базой данных', status: 'not-started', notes: '', category: 'backend' },
 ];
 
-// Хук для работы с технологиями
 function useTechnologies() {
   const [technologies, setTechnologies] = useLocalStorage('technologies', initialTechnologies);
-
-  // Вспомогательная функция для отправки события об обновлении данных
+  
   const dispatchUpdateEvent = () => {
     window.dispatchEvent(new Event('technologiesUpdated'));
+  };
+
+  const getTechnologyById = (techId) => {
+    const id = parseInt(techId);
+    return technologies.find(tech => tech.id === id);
   };
 
   const markAllCompleted = () => {
     setTechnologies(prevTech =>
       prevTech.map(tech => ({ ...tech, status: 'completed' }))
     );
-    dispatchUpdateEvent(); // Отправляем событие
+    dispatchUpdateEvent();
   };
 
   const resetAll = () => {
     setTechnologies(prevTech =>
       prevTech.map(tech => ({ ...tech, status: 'not-started' }))
     );
-    dispatchUpdateEvent(); // Отправляем событие
+    dispatchUpdateEvent();
   };
 
   const chooseRandomTechnology = () => {
@@ -46,27 +49,24 @@ function useTechnologies() {
     alert(`Выбрана технология: ${randomTech.title}`)
   }
 
-  // Обновление статуса
   const updateStatus = (techId, newStatus) => {
     setTechnologies(prev =>
       prev.map(tech =>
         tech.id === techId ? { ...tech, status: newStatus } : tech
       )
     );
-    dispatchUpdateEvent(); // Отправляем событие
+    dispatchUpdateEvent();
   };
 
-  // Обновление заметок
   const updateNotes = (techId, newNotes) => {
     setTechnologies(prev =>
       prev.map(tech =>
         tech.id === techId ? { ...tech, notes: newNotes } : tech
       )
     );
-    dispatchUpdateEvent(); // Отправляем событие
+    dispatchUpdateEvent();
   };
 
-  // Расчет прогресса
   const calculateProgress = () => {
     if (technologies.length === 0) return 0;
     const completed = technologies.filter(tech => tech.status === 'completed').length;
@@ -78,7 +78,8 @@ function useTechnologies() {
     setTechnologies,
     updateStatus,
     updateNotes,
-    markAllCompleted, 
+    getTechnologyById,
+    markAllCompleted,
     resetAll,
     chooseRandomTechnology,
     progress: calculateProgress()

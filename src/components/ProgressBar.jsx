@@ -7,7 +7,6 @@ function ProgressBar({
   showPercentage = true,
   animated = false
 }) {
-  // Убеждаемся что прогресс от 0 до 100
   const normalizedProgress = Math.min(100, Math.max(0, progress));
 
   return (
@@ -22,7 +21,6 @@ function ProgressBar({
         </div>
       )}
 
-      {/* Сам прогресс-бар */}
       <div
         className="progress-bar-outer"
         style={{

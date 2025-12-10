@@ -1,46 +1,29 @@
 // src/pages/TechnologyDetail.jsx
+
 import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import useTechnologies from '../hooks/useTechnologies';
-
+import useTechnologies from '../hooks/useTechnologies'; 
 import './TechnologyDetail.css'
 
 function TechnologyDetail() {
     const { techId } = useParams();
-    const { updateStatus, updateNotes } = useTechnologies(); 
+    
+    const { getTechnologyById, updateStatus, updateNotes } = useTechnologies(); 
 
-    const [technology, setTechnology] = useState(null);
+    const technology = getTechnologyById(techId);
+
     const [notes, setNotes] = useState('');
     
-    // Функция для загрузки технологии
-    const loadTechnology = () => {
-        const saved = localStorage.getItem('technologies');
-        if (saved) {
-            const technologies = JSON.parse(saved);
-            const tech = technologies.find(t => t.id === parseInt(techId));
-            if (tech) {
-                setTechnology(tech);
-                setNotes(tech.notes);
-            }
-        }
-    };
-
-    // Загрузка и подписка на события для реактивности
     useEffect(() => {
-        loadTechnology();
-        window.addEventListener('technologiesUpdated', loadTechnology);
-        return () => {
-            window.removeEventListener('technologiesUpdated', loadTechnology);
-        };
-    }, [techId]); 
+        if (technology) {
+            setNotes(technology.notes);
+        }
+    }, [technology]); 
 
-    // Обновление статуса
     const handleStatusUpdate = (newStatus) => {
         updateStatus(technology.id, newStatus);
-        setTechnology(prev => ({ ...prev, status: newStatus })); 
     };
 
-    // Сохранение заметок
     const handleNotesSave = (e) => {
         e.preventDefault();
         updateNotes(technology.id, notes);
@@ -49,7 +32,7 @@ function TechnologyDetail() {
 
     if (!technology) {
         return (
-            <div className="page">
+            <div className="page error-state">
                 <h1>Технология не найдена</h1>
                 <p>Технология с ID {techId} не существует.</p>
                 <Link to="/technologies" className="btn btn-primary">
