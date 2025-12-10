@@ -1,0 +1,47 @@
+/* Styles for Navigation.jsx */
+
+.main-navigation {
+    background-color: var(--bg-card);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.nav-brand h2 {
+    color: var(--text-main);
+    font-size: 1.4em;
+}
+
+.nav-brand a {
+    text-decoration: none;
+}
+
+.nav-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.nav-menu li {
+    margin-left: 20px;
+}
+
+.nav-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 5px 0;
+    transition: color 0.2s, border-bottom 0.2s;
+}
+
+.nav-link:hover {
+    color: var(--accent);
+}
+
+.nav-link.active {
+    color: var(--accent);
+    border-bottom: 2px solid var(--accent);
+}

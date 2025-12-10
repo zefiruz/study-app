@@ -1,0 +1,59 @@
+/* Styles for TechnologyList.jsx */
+
+.page-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.technologies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.technology-item {
+    background-color: var(--bg-main);
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s, transform 0.2s;
+}
+
+.technology-item:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+}
+
+.technology-item h3 {
+    color: var(--text-main);
+    font-size: 1.3em;
+    margin-bottom: 5px;
+}
+
+.technology-item p {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+}
+
+.technology-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    border: 2px dashed var(--border);
+    border-radius: 8px;
+    margin-top: 30px;
+    color: var(--text-secondary);
+}

@@ -1,0 +1,60 @@
+/* Styles for TechnologyDetail.jsx */
+
+.back-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9em;
+    padding-right: 10px;
+}
+.back-link:hover {
+    color: var(--accent);
+}
+
+.technology-detail {
+    display: grid;
+    gap: 30px;
+}
+
+.detail-section {
+    background-color: var(--bg-main);
+    padding: 20px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+}
+
+.detail-section h3 {
+    color: var(--accent);
+    font-size: 1.4em;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.status-buttons button {
+    margin-right: 10px;
+    background-color: #333;
+    color: var(--text-main);
+}
+
+.status-buttons button.active {
+    background-color: var(--accent);
+    color: var(--bg-main);
+    font-weight: bold;
+}
+
+.notes-editor textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background-color: #3c3c3c;
+    color: var(--text-main);
+    resize: vertical;
+    margin-bottom: 10px;
+}
+
+.notes-editor form {
+    margin-top: 15px;
+}

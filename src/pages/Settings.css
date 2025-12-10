@@ -1,0 +1,35 @@
+/* Styles for Settings.jsx */
+
+.settings-section {
+    margin-top: 25px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background-color: var(--bg-main);
+}
+
+.settings-section h2 {
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.settings-section p {
+    margin-bottom: 15px;
+    color: var(--text-secondary);
+}
+
+.settings-section button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 10px;
+    background-color: #333333;
+    color: var(--text-main);
+}
+
+.settings-section button:hover {
+    background-color: #444444;
+}

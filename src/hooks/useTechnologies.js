@@ -1,71 +1,36 @@
 import useLocalStorage from './useLocalStorage';
 
-// Начальные данные
+// Начальные данные (оставляем без изменений)
 const initialTechnologies = [
-  {
-    id: 1,
-    title: 'React Components',
-    description: 'Изучение функциональных и классовых компонентов',
-    status: 'not-started',
-    notes: '',
-    category: 'frontend'
-  },
-  {
-    id: 2,
-    title: 'JSX Syntax',
-    description: 'Освоение синтаксиса JSX',
-    status: 'not-started',
-    notes: '',
-    category: 'frontend'
-  },
-  {
-    id: 3,
-    title: 'useState Hook',
-    description: 'Работа с состоянием в компонентах',
-    status: 'not-started',
-    notes: '',
-    category: 'frontend'
-  },
-  {
-    id: 4,
-    title: 'Node.js Basics',
-    description: 'Основы серверного JavaScript',
-    status: 'not-started',
-    notes: '',
-    category: 'backend'
-  },
-  {
-    id: 5,
-    title: 'Express.js',
-    description: 'Создание серверов на Node.js',
-    status: 'not-started',
-    notes: '',
-    category: 'backend'
-  },
-  {
-    id: 6,
-    title: 'MongoDB',
-    description: 'Работа с базой данных',
-    status: 'not-started',
-    notes: '',
-    category: 'backend'
-  },
+  { id: 1, title: 'React Components', description: 'Изучение функциональных и классовых компонентов', status: 'not-started', notes: '', category: 'frontend' },
+  { id: 2, title: 'JSX Syntax', description: 'Освоение синтаксиса JSX', status: 'not-started', notes: '', category: 'frontend' },
+  { id: 3, title: 'useState Hook', description: 'Работа с состоянием в компонентах', status: 'not-started', notes: '', category: 'frontend' },
+  { id: 4, title: 'Node.js Basics', description: 'Основы серверного JavaScript', status: 'not-started', notes: '', category: 'backend' },
+  { id: 5, title: 'Express.js', description: 'Создание серверов на Node.js', status: 'not-started', notes: '', category: 'backend' },
+  { id: 6, title: 'MongoDB', description: 'Работа с базой данных', status: 'not-started', notes: '', category: 'backend' },
 ];
 
 // Хук для работы с технологиями
 function useTechnologies() {
   const [technologies, setTechnologies] = useLocalStorage('technologies', initialTechnologies);
 
+  // Вспомогательная функция для отправки события об обновлении данных
+  const dispatchUpdateEvent = () => {
+    window.dispatchEvent(new Event('technologiesUpdated'));
+  };
+
   const markAllCompleted = () => {
     setTechnologies(prevTech =>
       prevTech.map(tech => ({ ...tech, status: 'completed' }))
     );
+    dispatchUpdateEvent(); // Отправляем событие
   };
 
   const resetAll = () => {
     setTechnologies(prevTech =>
       prevTech.map(tech => ({ ...tech, status: 'not-started' }))
     );
+    dispatchUpdateEvent(); // Отправляем событие
   };
 
   const chooseRandomTechnology = () => {
@@ -89,6 +54,7 @@ function useTechnologies() {
         tech.id === techId ? { ...tech, status: newStatus } : tech
       )
     );
+    dispatchUpdateEvent(); // Отправляем событие
   };
 
   // Обновление заметок
@@ -98,6 +64,7 @@ function useTechnologies() {
         tech.id === techId ? { ...tech, notes: newNotes } : tech
       )
     );
+    dispatchUpdateEvent(); // Отправляем событие
   };
 
   // Расчет прогресса

@@ -1,0 +1,36 @@
+/* Styles for AddTechnology.jsx */
+
+.form-add-technology {
+    display: grid;
+    gap: 15px;
+    padding-top: 10px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: var(--text-main);
+}
+
+.form-add-technology input[type="text"],
+.form-add-technology textarea,
+.form-add-technology select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #3c3c3c; 
+    color: var(--text-main);
+}
+
+.form-add-technology textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-add-technology button[type="submit"] {
+    margin-top: 10px;
+    width: 100%; 
+}
