@@ -1,127 +1,50 @@
-/* QuickActions.css */
+/* Styles for QuickActions.jsx */
+
 .quick-actions {
-  background: white;
-  border: 1px solid #dee2e6;
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    background-color: var(--bg-card);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
 }
 
 .quick-actions h3 {
-  color: #495057;
-  margin-top: 0;
-  margin-bottom: 15px;
-  font-size: 1.2rem;
-  text-align: center;
+    color: var(--text-main);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .action-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .action-btn {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 180px;
+    flex-grow: 1;
+    padding: 10px 15px;
+    font-weight: bold;
+    color: var(--bg-main);
+    transition: opacity 0.2s;
 }
 
 .action-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    opacity: 0.8;
 }
 
 .success-btn {
-  background: #4CAF50;
-  color: white;
-}
-
-.success-btn:hover {
-  background: #45a049;
+    background-color: var(--success);
 }
 
 .warning-btn {
-  background: #FF9800;
-  color: white;
-}
-
-.warning-btn:hover {
-  background: #e68900;
+    background-color: var(--in-progress);
 }
 
 .random-btn {
-  background: #9C27B0;
-  color: white;
-}
-
-.random-btn:hover {
-  background: #7b1fa2;
+    background-color: var(--accent);
 }
 
 .info-btn {
-  background: #2196F3;
-  color: white;
-}
-
-.info-btn:hover {
-  background: #0b7dda;
-}
-
-/* Контент модалки */
-.export-content {
-  line-height: 1.6;
-  color: #333;
-}
-
-.export-content p {
-  margin: 10px 0;
-}
-
-.export-content strong {
-  color: #4a6fa5;
-}
-
-.modal-actions {
-  margin-top: 20px;
-  text-align: right;
-}
-
-.close-modal-btn {
-  padding: 8px 16px;
-  background: #6c757d;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
-}
-
-.close-modal-btn:hover {
-  background: #5a6268;
-}
-
-/* Адаптивность */
-@media (max-width: 768px) {
-  .action-buttons {
-    flex-direction: column;
-  }
-  
-  .action-btn {
-    width: 100%;
-  }
-  
-  .quick-actions {
-    padding: 15px;
-  }
+    background-color: #5d9cec; /* Blue for info/export */
 }

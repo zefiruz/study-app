@@ -4,13 +4,10 @@ import React from 'react';
 import './Settings.css'; 
 
 function Settings() {
-    // Логика useTechnologies и handleFactoryReset удалена
 
     return (
         <div className="page">
             <h1>Настройки приложения</h1>
-            
-            {/* Секция управления данными удалена */}
 
             <div className="settings-section">
                 <h2>Общие настройки (Заглушки)</h2>

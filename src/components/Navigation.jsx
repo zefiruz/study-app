@@ -1,15 +1,17 @@
 // src/components/Navigation.jsx
 import { Link, useLocation } from 'react-router-dom';
 import React from 'react';
-
-import './Navigation.css'
+import './Navigation.css'; // <-- Импорт стилей
 
 function Navigation() {
   const location = useLocation();
 
-  // Вспомогательная функция для выделения активной ссылки
   const getClassName = (path) => {
-    return location.pathname === path ? 'nav-link active' : 'nav-link';
+    // Простая проверка для подсветки активной ссылки
+    const currentPath = location.pathname.replace(/\/$/, ''); // Удаляем слэш в конце для корректного сравнения
+    const targetPath = path.replace(/\/$/, '');
+
+    return currentPath === targetPath ? 'nav-link active' : 'nav-link';
   };
 
   return (
@@ -33,6 +35,11 @@ function Navigation() {
         <li>
           <Link to="/statistics" className={getClassName('/statistics')}>
             Статистика
+          </Link>
+        </li>
+        <li>
+          <Link to="/genius" className={getClassName('/genius')}>
+            Genius API
           </Link>
         </li>
         <li>

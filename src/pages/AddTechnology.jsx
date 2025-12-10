@@ -11,7 +11,7 @@ function AddTechnology() {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('frontend');
-    const [status] = useState('not-started'); // По умолчанию новая технология не начата
+    const [status] = useState('not-started'); 
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -32,14 +32,12 @@ function AddTechnology() {
             category,
         };
 
-        // Обновляем список технологий
         setTechnologies(prev => [...prev, newTech]);
         
-        // Отправляем событие об обновлении, чтобы TechnologyList обновился
         window.dispatchEvent(new Event('technologiesUpdated'));
 
         alert(`Технология "${title}" успешно добавлена!`);
-        navigate('/technologies'); // Переход на страницу списка
+        navigate('/technologies'); 
     };
 
     return (

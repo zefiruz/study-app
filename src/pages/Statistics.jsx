@@ -1,9 +1,10 @@
 // src/pages/Statistics.jsx
 import React from 'react';
 import useTechnologies from '../hooks/useTechnologies';
-import './Statistics.css';
+import './Statistics.css'; 
 
 function Statistics() {
+    // Используем useTechnologies для получения данных
     const { technologies, progress } = useTechnologies();
 
     const total = technologies.length;
@@ -36,11 +37,6 @@ function Statistics() {
                     <h3>Не начато</h3>
                     <p className="stat-value not-started">{notStarted}</p>
                 </div>
-            </div>
-
-            <div className="chart-placeholder">
-                <h2>[Placeholder для графика]</h2>
-                <p>Здесь может быть красивый круговой или линейный график.</p>
             </div>
         </div>
     );

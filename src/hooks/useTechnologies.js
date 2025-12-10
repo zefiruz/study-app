@@ -1,6 +1,5 @@
 import useLocalStorage from './useLocalStorage';
 
-// Начальные данные (оставляем без изменений)
 const initialTechnologies = [
   { id: 1, title: 'React Components', description: 'Изучение функциональных и классовых компонентов', status: 'not-started', notes: '', category: 'frontend' },
   { id: 2, title: 'JSX Syntax', description: 'Освоение синтаксиса JSX', status: 'not-started', notes: '', category: 'frontend' },
@@ -74,7 +73,6 @@ function useTechnologies() {
     return Math.round((completed / technologies.length) * 100);
   };
 
-  // Возвращаем все что нужно
   return {
     technologies,
     setTechnologies,
