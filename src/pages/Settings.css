@@ -33,3 +33,26 @@
 .settings-section button:hover {
     background-color: #444444;
 }
+
+.btn-danger {
+    background-color: var(--color-danger, #d32f2f); /* Красный цвет */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+    margin-top: 20px;
+}
+
+.btn-danger:hover {
+    background-color: var(--color-danger-dark, #b71c1c); /* Чуть более темный красный при наведении */
+}
+
+/* Обертка для кнопки выхода, чтобы она стояла отдельно */
+.logout-section {
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px dashed var(--border-light, #444);
+}

@@ -1,10 +1,24 @@
 // src/pages/Settings.jsx
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // 🚨 Импортируем useNavigate
 import DeadlineForm from '../components/DeadlineForm'; 
 
 import './Settings.css'; 
 
 function Settings() {
+    const navigate = useNavigate(); // 🚨 Инициализируем useNavigate
+
+    const handleLogout = () => {
+        // 1. Удаляем токен аутентификации из localStorage
+        localStorage.removeItem('authToken'); 
+        localStorage.removeItem('registeredUser'); // Очистка тестовых данных, если необходимо
+
+        // 2. Опционально: Очистка других состояний (если бы использовался Context или Redux)
+        
+        // 3. Перенаправляем пользователя на главную страницу (или /login)
+        alert('Вы успешно вышли из аккаунта.');
+        navigate('/'); 
+    };
 
     return (
         <div className="page">
@@ -33,6 +47,15 @@ function Settings() {
                         Изменить язык
                     </button>
                 </p>
+                
+                <div className="logout-section">
+                    <button 
+                        onClick={handleLogout} 
+                        className="btn btn-danger" // Используем класс 'btn-danger' для визуального выделения
+                    >
+                        Выйти из аккаунта
+                    </button>
+                </div>
             </div>
         </div>
     );
