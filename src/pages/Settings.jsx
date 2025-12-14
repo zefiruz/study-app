@@ -1,12 +1,12 @@
-// src/pages/Settings.jsx
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import DeadlineForm from '../components/DeadlineForm'; 
-
+import DeadlineForm from '../components/DeadlineForm';
+import { useThemeMode } from '../hooks/useThemeMode';
 import './Settings.css'; 
 
 function Settings() {
     const navigate = useNavigate();
+    
+    const { toggleColorMode, mode } = useThemeMode(); 
 
     const handleLogout = () => {
         localStorage.removeItem('authToken'); 
@@ -28,22 +28,30 @@ function Settings() {
 
             <div className="settings-section">
                 <h2>Общие настройки</h2>
+                
                 <p>
                     <button onClick={() => alert('Настройки уведомлений сохранены!')} className="btn btn-secondary">
                         Сохранить настройки уведомлений
                     </button>
                 </p>
+                
                 <p>
-                    <button onClick={() => alert('Тема изменена на темную!')} className="btn btn-secondary">
-                        Переключить на темную тему
+                    <button 
+                        onClick={toggleColorMode} 
+                        className="btn btn-secondary"
+                    >
+                        Переключить на {mode === 'light' ? 'тёмную' : 'светлую'} тему
                     </button>
                 </p>
+                
                 <p>
                     <button onClick={() => alert('Язык изменен на английский!')} className="btn btn-secondary">
                         Изменить язык
                     </button>
                 </p>
-                
+            </div>
+
+            <div className="settings-section">
                 <div className="logout-section">
                     <button 
                         onClick={handleLogout} 
