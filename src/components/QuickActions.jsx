@@ -1,25 +1,40 @@
-import React, { useState } from 'react'; // Добавь React
-import Modal from './Modal';
 import './QuickActions.css';
 
 function QuickActions({ onMarkAllCompleted, onResetAll, onRandomSelect, technologies }) { 
-  const [showExportModal, setShowExportModal] = useState(false);
-
-  // Экспорт данных
+  
   const handleExport = () => {
-    const data = {
-      exportedAt: new Date().toISOString(),
-      totalTechnologies: technologies.length,
-      completed: technologies.filter(t => t.status === 'completed').length,
-      technologies: technologies
-    };
-    
-    const dataStr = JSON.stringify(data, null, 2);
-    console.log('Экспортированные данные:', dataStr);
-    
-    setShowExportModal(true);
-  };
+    try {
+        const data = {
+          exportedAt: new Date().toISOString(),
+          totalTechnologies: technologies.length,
+          completed: technologies.filter(t => t.status === 'completed').length,
+          technologies: technologies
+        };
+        
+        const dataStr = JSON.stringify(data, null, 2);
 
+        const dataBlob = new Blob([dataStr], { type: 'application/json' });
+        const url = URL.createObjectURL(dataBlob);
+
+        const link = document.createElement('a');
+        link.href = url;
+        
+        link.download = `technologies_${new Date().toISOString().split('T')[0]}.json`;
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        URL.revokeObjectURL(url);
+        
+        console.log(`Успешно экспортировано ${technologies.length} элементов.`);
+
+    } catch (error) {
+        console.error('Ошибка экспорта данных:', error);
+        alert('Произошла ошибка при экспорте данных.');
+    }
+  };
+  
   return (
     <div className="quick-actions">
       <h3>Быстрые действия</h3>
@@ -54,29 +69,6 @@ function QuickActions({ onMarkAllCompleted, onResetAll, onRandomSelect, technolo
           ⬇ Экспорт данных
         </button>
       </div>
-
-      {/* Модалка для экспорта */}
-      <Modal
-        isOpen={showExportModal}
-        onClose={() => setShowExportModal(false)}
-        title="Экспорт данных"
-      >
-        <div className="export-content">
-          <p>Данные успешно подготовлены для экспорта!</p>
-          <p>Всего технологий: <strong>{technologies.length}</strong></p>
-          <p>Выполнено: <strong>{technologies.filter(t => t.status === 'completed').length}</strong></p>
-          <p>Посмотрите консоль разработчика (F12) чтобы увидеть данные.</p>
-          
-          <div className="modal-actions">
-            <button 
-              onClick={() => setShowExportModal(false)}
-              className="close-modal-btn"
-            >
-              Закрыть
-            </button>
-          </div>
-        </div>
-      </Modal>
     </div>
   );
 }

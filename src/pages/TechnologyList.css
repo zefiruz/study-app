@@ -1,6 +1,3 @@
-/* Styles for TechnologyList.jsx */
-
-/* --- СТРУКТУРА --- */
 .page-header {
     border-bottom: 1px solid var(--border);
     padding-bottom: 15px;
@@ -10,6 +7,11 @@
     align-items: center;
 }
 
+.header-actions {
+    display: flex;
+    gap: 10px;
+}
+
 .technologies-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -17,16 +19,13 @@
     margin-top: 20px;
 }
 
-/* --- КАРТОЧКА ТЕХНОЛОГИИ --- */
 .technology-item {
-    background-color: var(--bg-card, #2c2c2c); /* Темный фон карточки */
+    background-color: var(--bg-card, #2c2c2c);
     padding: 15px;
     border-radius: 6px;
     border: 1px solid var(--border);
     transition: border-color 0.2s, transform 0.2s;
-    
-    /* 1. Добавляем акцентную границу слева */
-    border-left: 5px solid var(--border-light); 
+    border-left: 5px solid var(--border-light);
 }
 
 .technology-item:hover {
@@ -45,69 +44,59 @@
     font-size: 0.9em;
 }
 
-/* 2. Стиль карточки в зависимости от статуса (приглушенные акценты) */
 .technology-item.status-not-started {
-    border-left-color: var(--status-not-started-color, #616161); /* Мягкий серый */
+    border-left-color: #616161;
 }
 
 .technology-item.status-in-progress {
-    border-left-color: var(--status-in-progress-color, #ff9800); /* Оранжевый */
+    border-left-color: #ffb74d;
 }
 
 .technology-item.status-completed {
-    border-left-color: var(--status-completed-color, #4caf50); /* Зеленый */
+    border-left-color: #81c784;
 }
 
-/* --- СЕКЦИЯ МЕТА/ДЕЙСТВИЙ --- */
 .technology-meta {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 15px;
     padding-top: 10px;
-    border-top: 1px dashed var(--border-light, #444); 
+    border-top: 1px dashed var(--border-light, #444);
 }
-
-/* --- КНОПКА ЦИКЛИЧЕСКОГО ПЕРЕКЛЮЧЕНИЯ (status-btn) --- */
 
 .cycle-status-btn {
     display: flex;
     align-items: center;
     gap: 6px;
-    padding: 6px 10px; 
-    border: 1px solid transparent; 
-    border-radius: 4px; 
+    padding: 6px 10px;
+    border: 1px solid transparent;
+    border-radius: 4px;
     font-weight: 500;
-    font-size: 0.9em; 
+    font-size: 0.9em;
     cursor: pointer;
     transition: all 0.2s ease;
-    /* Убираем text-shadow для чистоты */
 }
 
 .cycle-status-btn:hover {
-    filter: brightness(1.1); /* Слегка осветляем при наведении */
+    filter: brightness(1.1);
 }
 
-/* 4. Стиль кнопки в зависимости от статуса (приглушенные, но контрастные темные тона) */
-
-/* Не начато (Нейтральный) */
 .cycle-status-btn.status-not-started {
-    background-color: #3f3f3f; /* Темно-серый */
-    color: #cccccc; /* Светло-серый текст */
-    border-color: #616161; /* Мягкий серый ободок */
+    background-color: #3f3f3f;
+    color: #cccccc;
+    border-color: #616161;
 }
 
-/* В процессе (Мягкий Янтарный) */
 .cycle-status-btn.status-in-progress {
-    background-color: #6d4c41; /* Приглушенный коричневый */
-    color: #ffcc80; /* Мягкий оранжевый текст */
+    background-color: #6d4c41;
+    color: #ffcc80;
     border-color: #ffb74d;
 }
 
-/* Завершено (Мягкий Зеленый/Успех) */
 .cycle-status-btn.status-completed {
-    background-color: #2e7d32; /* Насыщенный, но не кислотный зеленый */
-    color: #c8e6c9; /* Очень светлый зеленый текст */
+    background-color: #2e7d32;
+    color: #c8e6c9;
     border-color: #81c784;
 }
 
@@ -116,7 +105,6 @@
     font-weight: bold;
 }
 
-/* --- ПРОЧЕЕ --- */
 .empty-state {
     text-align: center;
     padding: 40px;
@@ -126,7 +114,6 @@
     color: var(--text-secondary);
 }
 
-/* Секция поиска */
 .search-input-container {
     margin-bottom: 25px;
 }
@@ -139,13 +126,28 @@
 
 .search-input {
     width: 100%;
-    padding: 12px 15px 12px 45px; 
+    padding: 12px 15px 12px 45px;
     border: 1px solid var(--border);
-    border-radius: 8px; 
+    border-radius: 8px;
     box-sizing: border-box;
-    background-color: var(--bg-main); 
+    background-color: var(--bg-main);
     color: var(--text-main);
     font-size: 1em;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5); 
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
     transition: all 0.3s ease;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+    overflow-y: auto;
 }

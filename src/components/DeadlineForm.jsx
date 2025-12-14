@@ -1,117 +1,139 @@
 // src/components/DeadlineForm.jsx
-import React, { useState, useCallback } from 'react';
-import './DeadlineForm.css';
+import React, { useState, useEffect } from 'react';
+import './DeadlineForm.css'; // Создадим стили для этой формы
 
+const DEADLINE_KEY = 'studyDeadline';
 
-const initialData = {
-    startDate: '',
-    endDate: '',
+// --- Функции валидации ---
+
+const validateDate = (dateString) => {
+    if (!dateString) {
+        return 'Срок не может быть пустым.';
+    }
+    const selectedDate = new Date(dateString);
+    const today = new Date();
+    
+    // Сбрасываем время для точного сравнения дат
+    today.setHours(0, 0, 0, 0); 
+    selectedDate.setHours(0, 0, 0, 0);
+
+    if (selectedDate < today) {
+        return 'Дата не может быть в прошлом.';
+    }
+    return null; // Валидация пройдена
 };
 
+// --- Основной компонент ---
+
 function DeadlineForm() {
-    const [formData, setFormData] = useState(initialData);
-    const [errors, setErrors] = useState({});
-    const [isSubmitted, setIsSubmitted] = useState(false);
-
-    const validate = useCallback((data) => {
-        const newErrors = {};
-        const start = new Date(data.startDate);
-        const end = new Date(data.endDate);
-
-        if (!data.startDate) {
-            newErrors.startDate = 'Дата начала не может быть пустой.';
+    // Состояние для хранения выбранной даты и ошибки
+    const [deadline, setDeadline] = useState('');
+    const [error, setError] = useState(null);
+    const [isSaved, setIsSaved] = useState(false);
+    
+    // Эффект для загрузки сохраненного срока при монтировании
+    useEffect(() => {
+        const savedDeadline = localStorage.getItem(DEADLINE_KEY);
+        if (savedDeadline) {
+            setDeadline(savedDeadline);
         }
-        if (!data.endDate) {
-            newErrors.endDate = 'Дата завершения не может быть пустой.';
-        }
-
-        if (data.startDate && data.endDate && start >= end) {
-            newErrors.endDate = 'Дата завершения должна быть строго позже даты начала.';
-        }
-
-        if (data.endDate && end < new Date()) {
-             newErrors.endDate = 'Дата завершения не может быть в прошлом.';
-        }
-
-
-        return newErrors;
     }, []);
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        
-        const newFormData = { ...formData, [name]: value };
-        setFormData(newFormData);
-
-        if (isSubmitted) {
-            const validationErrors = validate(newFormData);
-            setErrors(validationErrors);
-        }
+    // Функция для получения минимальной даты (сегодня) в формате YYYY-MM-DD
+    const getMinDate = () => {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
     };
 
+    // Обработчик изменения ввода (валидация в реальном времени)
+    const handleChange = (e) => {
+        const newDate = e.target.value;
+        setDeadline(newDate);
+        setIsSaved(false);
+
+        // Валидация в реальном времени
+        const validationError = validateDate(newDate);
+        setError(validationError);
+    };
+
+    // Обработчик отправки формы
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        setIsSubmitted(true); 
-
-        const validationErrors = validate(formData);
-        setErrors(validationErrors);
-
-        if (Object.keys(validationErrors).length === 0) {
-            console.log('Сроки изучения установлены:', formData);
-            alert(`Сроки успешно установлены: ${formData.startDate} по ${formData.endDate}`);
+        // Финальная валидация
+        const validationError = validateDate(deadline);
+        if (validationError) {
+            setError(validationError);
+            return;
         }
+
+        // Сохранение данных (имитация API запроса)
+        localStorage.setItem(DEADLINE_KEY, deadline);
+        setError(null);
+        setIsSaved(true);
+        
+        // Оповещение о сохранении
+        setTimeout(() => setIsSaved(false), 3000);
     };
 
     return (
-        <form className="deadline-form" onSubmit={handleSubmit} noValidate>
-            <h3>Установка сроков изучения</h3>
-            <p className="form-tip">Укажите желаемые сроки для завершения всего технологического трекера.</p>
+        <div className="deadline-form-container">
+            <h2>Установка глобального срока</h2>
+            <p className="form-description">
+                Установите желаемую дату завершения изучения всех технологий.
+            </p>
 
-            <div className="form-group">
-                <label htmlFor="startDate">Дата начала:</label>
-                <input
-                    type="date"
-                    id="startDate"
-                    name="startDate"
-                    value={formData.startDate}
-                    onChange={handleChange}
-                    // ARIA-атрибуты для доступности
-                    aria-required="true"
-                    aria-invalid={!!errors.startDate}
-                    aria-describedby={errors.startDate ? 'error-start-date' : undefined}
-                />
-                {errors.startDate && (
-                    <span id="error-start-date" className="error-message" role="alert">
-                        {errors.startDate}
-                    </span>
+            <form onSubmit={handleSubmit} className="deadline-form" aria-live="polite">
+                <div className="form-group">
+                    <label 
+                        htmlFor="study-deadline" 
+                        className="form-label"
+                    >
+                        Дата окончания изучения
+                    </label>
+                    <input
+                        type="date"
+                        id="study-deadline"
+                        name="study-deadline"
+                        value={deadline}
+                        onChange={handleChange}
+                        onBlur={handleChange} // Повторная валидация при потере фокуса
+                        min={getMinDate()} // Нельзя выбрать прошедшую дату через UI
+                        required
+                        className={`form-input ${error ? 'input-error' : ''}`}
+                        aria-invalid={!!error}
+                        aria-describedby={error ? 'deadline-error-msg' : undefined}
+                    />
+                </div>
+                
+                {error && (
+                    <div id="deadline-error-msg" className="error-message" role="alert">
+                        {error}
+                    </div>
                 )}
-            </div>
-
-            <div className="form-group">
-                <label htmlFor="endDate">Дата завершения:</label>
-                <input
-                    type="date"
-                    id="endDate"
-                    name="endDate"
-                    value={formData.endDate}
-                    onChange={handleChange}
-                    // ARIA-атрибуты для доступности
-                    aria-required="true"
-                    aria-invalid={!!errors.endDate}
-                    aria-describedby={errors.endDate ? 'error-end-date' : undefined}
-                />
-                {errors.endDate && (
-                    <span id="error-end-date" className="error-message" role="alert">
-                        {errors.endDate}
-                    </span>
-                )}
-            </div>
-
-            <button type="submit" className="btn btn-primary">
-                Установить сроки
-            </button>
-        </form>
+                
+                <div className="form-actions">
+                    <button 
+                        type="submit" 
+                        className="btn btn-primary"
+                        disabled={!!error} 
+                    >
+                        {isSaved ? 'Сохранено!' : 'Сохранить срок'}
+                    </button>
+                    {isSaved && <span className="save-status" aria-hidden="true">✔</span>}
+                </div>
+            </form>
+            
+            {/* Отображение текущего срока (если есть) */}
+            {deadline && !isSaved && (
+                <p className="current-deadline">
+                    Текущий срок установлен до: <strong>{new Date(deadline).toLocaleDateString()}</strong>
+                </p>
+            )}
+        </div>
     );
 }
 

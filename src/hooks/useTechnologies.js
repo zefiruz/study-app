@@ -48,20 +48,38 @@ function useTechnologies() {
     updateStatus(randomTech.id, 'in-progress')
     alert(`Выбрана технология: ${randomTech.title}`)
   }
-
+  
   const updateStatus = (techId, newStatus) => {
+    const idToUpdate = parseInt(techId);
+    
     setTechnologies(prev =>
       prev.map(tech =>
-        tech.id === techId ? { ...tech, status: newStatus } : tech
+        tech.id === idToUpdate ? { ...tech, status: newStatus } : tech
       )
     );
     dispatchUpdateEvent();
   };
+  
+  const bulkUpdateStatuses = (ids, newStatus) => {
+    const numericIds = ids.map(Number);
+
+    setTechnologies(prevTech => {
+      return prevTech.map(tech => {
+        if (numericIds.includes(tech.id)) {
+          return { ...tech, status: newStatus };
+        }
+        return tech;
+      });
+    });
+    dispatchUpdateEvent();
+  };
 
   const updateNotes = (techId, newNotes) => {
+    const idToUpdate = parseInt(techId);
+
     setTechnologies(prev =>
       prev.map(tech =>
-        tech.id === techId ? { ...tech, notes: newNotes } : tech
+        tech.id === idToUpdate ? { ...tech, notes: newNotes } : tech
       )
     );
     dispatchUpdateEvent();
@@ -77,6 +95,7 @@ function useTechnologies() {
     technologies,
     setTechnologies,
     updateStatus,
+    bulkUpdateStatuses,
     updateNotes,
     getTechnologyById,
     markAllCompleted,

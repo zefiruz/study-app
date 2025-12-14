@@ -1,63 +1,87 @@
 /* src/components/DeadlineForm.css */
 
-.deadline-form {
-    background-color: var(--bg-card);
-    padding: 25px;
+.deadline-form-container {
+    padding: 20px;
+    background-color: var(--bg-card, #2c2c2c);
     border-radius: 8px;
     border: 1px solid var(--border);
-    max-width: 500px;
-    margin: 0 auto;
-}
-
-.deadline-form h3 {
-    color: var(--accent);
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--border);
-}
-
-.form-tip {
     margin-bottom: 20px;
+}
+
+.deadline-form-container h2 {
+    color: var(--text-main);
+    font-size: 1.5em;
+    margin-top: 0;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+}
+
+.form-description {
     color: var(--text-secondary);
-    font-size: 0.9em;
+    margin-bottom: 20px;
 }
 
 .form-group {
     margin-bottom: 20px;
+    text-align: left;
 }
 
-.form-group label {
+.form-label {
     display: block;
     margin-bottom: 8px;
-    font-weight: bold;
+    font-weight: 600;
     color: var(--text-main);
 }
 
-.form-group input[type="date"] {
+.form-input {
     width: 100%;
-    padding: 10px 12px;
+    padding: 10px;
     border: 1px solid var(--border);
     border-radius: 4px;
-    background-color: var(--bg-main);
+    background-color: var(--bg-input, #3a3a3a);
     color: var(--text-main);
     box-sizing: border-box;
-    transition: border-color 0.2s;
+    font-size: 1em;
 }
 
-.form-group input[aria-invalid="true"] {
-    border-color: var(--error-red, #ff6b6b); 
-    box-shadow: 0 0 0 1px var(--error-red, #ff6b6b);
+/* Стили для поля ввода даты */
+.form-input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.8); /* Делаем иконку календаря видимой на темном фоне */
 }
 
-.form-group input:focus {
-    outline: none;
-    border-color: var(--accent);
+/* Стилизация ошибки */
+.input-error {
+    border-color: var(--color-error, #f44336) !important;
 }
 
 .error-message {
-    display: block;
-    margin-top: 5px;
-    color: var(--error-red, #ff6b6b); 
-    font-size: 0.85em;
+    color: var(--color-error, #f44336);
+    background-color: var(--bg-error, rgba(244, 67, 54, 0.1));
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: -10px;
+    margin-bottom: 15px;
+    border-left: 3px solid var(--color-error);
+    font-size: 0.9em;
+}
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.save-status {
+    color: var(--status-completed-color, #43a047); /* Зеленый цвет */
+    font-size: 1.5em;
     font-weight: bold;
+}
+
+.current-deadline {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px dashed var(--border-light, #444);
+    color: var(--text-secondary);
+    font-size: 0.95em;
 }

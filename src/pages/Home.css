@@ -1,34 +1,120 @@
-/* Styles for Home.jsx */
+/* src/pages/Home.css */
 
 .home-content {
-    padding: 20px 0;
+    /* Общие стили для страницы */
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 .home-content h1 {
-    font-size: 2.2em;
+    color: var(--accent);
     margin-bottom: 10px;
 }
 
-.home-content p {
-    font-size: 1.1em;
-    margin-bottom: 25px;
-    color: var(--text-secondary);
+.home-info-box {
+    background-color: var(--bg-card, #2c2c2c);
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 25px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-.home-content a {
-    color: var(--accent);
-    text-decoration: none;
+.home-info-box h2 {
+    color: var(--text-main);
+    border-bottom: 1px dashed var(--border-light);
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+/* Стили для Прогресс-бара */
+.progress-bar-placeholder {
+    height: 20px;
+    background-color: var(--bg-input);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: var(--status-completed-color, #4CAF50); /* Зеленый цвет успеха */
+    transition: width 0.5s ease-in-out;
+}
+
+.deadline-status-message {
+    padding: 15px;
+    border-radius: 6px;
+    font-size: 1.1em;
+}
+
+.deadline-status-message p {
+    margin: 5px 0;
+}
+
+.deadline-status-message.not-set {
+    background-color: var(--bg-warning, rgba(255, 193, 7, 0.1));
+    color: var(--color-warning, #FFC107);
+    border: 1px solid var(--color-warning);
+}
+
+.deadline-status-message.status-ok {
+    background-color: var(--bg-success, rgba(76, 175, 80, 0.1));
+    color: var(--status-completed-color, #4CAF50);
+}
+
+.deadline-status-message.status-warning {
+    background-color: var(--bg-danger, rgba(244, 67, 54, 0.1));
+    color: var(--color-danger, #d32f2f);
+}
+
+.deadline-status-message.status-late {
+    background-color: var(--bg-danger, rgba(244, 67, 54, 0.15));
+    color: var(--color-danger, #d32f2f);
     font-weight: bold;
 }
 
-.home-content a:hover {
-    text-decoration: underline;
+.days-left-message {
+    font-weight: bold;
+    font-size: 1.2em;
 }
 
-.home-info-box {
-    background-color: var(--bg-main);
-    padding: 20px;
-    border-radius: 6px;
-    border: 1px solid var(--border);
+.quick-links {
     margin-top: 30px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.progress-bar-placeholder {
+    height: 30px; /* Увеличим высоту для лучшей видимости текста */
+    background-color: var(--bg-input, #3a3a3a);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    /* 🚨 Добавляем Flexbox для центрирования всего содержимого внутри */
+    display: flex; 
+    align-items: center;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: var(--status-completed-color, #4CAF50);
+    transition: width 0.5s ease-in-out;
+    /* 🚨 Добавляем Flexbox для центрирования текста процента */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Выравнивание текста справа */
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+
+.progress-percentage {
+    color: white; /* Делаем текст белым для контраста на зеленом фоне */
+    font-weight: bold;
+    font-size: 0.9em;
+    /* Проверяем, достаточно ли места для отображения текста */
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: clip;
 }

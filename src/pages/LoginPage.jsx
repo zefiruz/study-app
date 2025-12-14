@@ -54,14 +54,8 @@ function LoginPage({ onLoginSuccess }) {
         setError(null);
 
         try {
-            if (isLogin) {
-                // 1. Проверяем жестко заданного тестового пользователя
-                if (formData.email === 'test@mail.ru' && formData.password === '123') {
-                    handleSuccess();
-                    return;
-                }
-                
-                // 2. Проверяем данные, сохраненные при регистрации
+            if (isLogin) {    
+                // Проверяем данные, сохраненные при регистрации
                 const storedUser = getStoredUser();
                 
                 if (storedUser && storedUser.email === formData.email && storedUser.password === formData.password) {
@@ -155,5 +149,6 @@ function LoginPage({ onLoginSuccess }) {
         </div>
     );
 }
+
 
 export default LoginPage;

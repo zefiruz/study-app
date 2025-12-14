@@ -1,10 +1,9 @@
-// src/pages/TechnologyList.jsx
-
 import { Link } from 'react-router-dom';
 import { useState, useEffect, useMemo } from 'react';
 import useTechnologies from '../hooks/useTechnologies'; 
 import Filters from '../components/Filters'; 
 import QuickActions from '../components/QuickActions'; 
+import BulkStatusEditor from '../components/BulkStatusEditor';
 import './TechnologyList.css'; 
 
 const STATUS_ORDER = ['not-started', 'in-progress', 'completed'];
@@ -27,11 +26,13 @@ function TechnologyList() {
         markAllCompleted, 
         resetAll, 
         chooseRandomTechnology,
-        updateStatus 
+        updateStatus,
+        bulkUpdateStatuses
     } = useTechnologies();
     
     const [searchTerm, setSearchTerm] = useState('');
     const [activeFilter, setActiveFilter] = useState('all');
+    const [isBulkEditOpen, setIsBulkEditOpen] = useState(false);
 
     useEffect(() => {
         const handleUpdate = () => {};
@@ -68,12 +69,34 @@ function TechnologyList() {
 
     return (
         <div className="page">
+            
             <div className="page-header">
                 <h1>Все технологии ({technologies.length})</h1>
-                <Link to="/add-technology" className="btn btn-primary">
-                    + Добавить
-                </Link>
+                <div className="header-actions"> 
+                    {technologies.length > 0 && (
+                        <button 
+                            onClick={() => setIsBulkEditOpen(true)} 
+                            className="btn btn-secondary"
+                            aria-label="Открыть форму для массового редактирования статусов"
+                        >
+                            Массовое редактирование
+                        </button>
+                    )}
+                    <Link to="/add-technology" className="btn btn-primary">
+                        + Добавить
+                    </Link>
+                </div>
             </div>
+
+            {isBulkEditOpen && (
+                <div className="modal-overlay">
+                    <BulkStatusEditor 
+                        technologies={technologies}
+                        bulkUpdateStatuses={bulkUpdateStatuses}
+                        closeModal={() => setIsBulkEditOpen(false)}
+                    />
+                </div>
+            )}
 
             <div className="tools-section">
                 <div className="search-input-container">
@@ -105,7 +128,7 @@ function TechnologyList() {
                     const nextStatusLabel = STATUS_LABELS[getNextStatus(tech.status)];
                     
                     return (
-                        <div key={tech.id} className={`technology-item status-${tech.status}`}> {/* 🚨 Добавляем класс статуса для стилей */}
+                        <div key={tech.id} className={`technology-item status-${tech.status}`}>
                             <h3>{tech.title}</h3>
                             <p>{tech.description}</p>
                             
@@ -130,7 +153,6 @@ function TechnologyList() {
                 })}
             </div>
 
-            {/* ... (Сообщения об отсутствии результатов и технологий) ... */}
             {filteredTechnologies.length === 0 && technologies.length > 0 && (
                 <div className="empty-state">
                     <p>Ничего не найдено. Попробуйте другие фильтры.</p>

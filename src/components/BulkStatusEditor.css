@@ -1,0 +1,130 @@
+/* src/components/BulkStatusEditor.css */
+
+.bulk-editor-modal {
+    background-color: var(--bg-primary, #1e1e1e);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    max-width: 600px;
+    margin: 20px auto;
+    border: 1px solid var(--border);
+}
+
+.bulk-editor-modal h2 {
+    color: var(--text-main);
+    margin-top: 0;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.bulk-editor-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.bulk-actions-controls {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border-light);
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background-color: var(--bg-input, #3a3a3a);
+    color: var(--text-main);
+}
+
+.technology-selection-list {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background-color: var(--bg-secondary, #252525);
+}
+
+.select-all-header {
+    padding: 10px;
+    border-bottom: 1px solid var(--border);
+    background-color: var(--bg-card);
+    font-weight: bold;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.tech-list-group {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tech-selection-item {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px dashed var(--border-light);
+}
+
+.tech-selection-item:last-child {
+    border-bottom: none;
+}
+
+.tech-label {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.tech-selection-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.current-status {
+    font-size: 0.8em;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+/* Стили для статусов, как в TechnologyList */
+.status-not-started { background-color: var(--status-not-started-bg, #333); color: var(--text-secondary); }
+.status-in-progress { background-color: var(--status-in-progress-bg, #007bff); color: white; }
+.status-completed { background-color: var(--status-completed-bg, #28a745); color: white; }
+
+.status-message {
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.status-message.success {
+    background-color: var(--bg-success, rgba(40, 167, 69, 0.2));
+    color: var(--status-completed-color, #28a745);
+}
+
+.status-message.error {
+    background-color: var(--bg-danger, rgba(220, 53, 69, 0.2));
+    color: var(--color-danger, #dc3545);
+}

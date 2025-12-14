@@ -1,21 +1,17 @@
 // src/pages/Settings.jsx
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // 🚨 Импортируем useNavigate
+import { useNavigate } from 'react-router-dom';
 import DeadlineForm from '../components/DeadlineForm'; 
 
 import './Settings.css'; 
 
 function Settings() {
-    const navigate = useNavigate(); // 🚨 Инициализируем useNavigate
+    const navigate = useNavigate();
 
     const handleLogout = () => {
-        // 1. Удаляем токен аутентификации из localStorage
         localStorage.removeItem('authToken'); 
-        localStorage.removeItem('registeredUser'); // Очистка тестовых данных, если необходимо
-
-        // 2. Опционально: Очистка других состояний (если бы использовался Context или Redux)
+        localStorage.removeItem('registeredUser');
         
-        // 3. Перенаправляем пользователя на главную страницу (или /login)
         alert('Вы успешно вышли из аккаунта.');
         navigate('/'); 
     };
@@ -31,7 +27,7 @@ function Settings() {
             </div>
 
             <div className="settings-section">
-                <h2>Общие настройки (Заглушки)</h2>
+                <h2>Общие настройки</h2>
                 <p>
                     <button onClick={() => alert('Настройки уведомлений сохранены!')} className="btn btn-secondary">
                         Сохранить настройки уведомлений
@@ -51,7 +47,7 @@ function Settings() {
                 <div className="logout-section">
                     <button 
                         onClick={handleLogout} 
-                        className="btn btn-danger" // Используем класс 'btn-danger' для визуального выделения
+                        className="btn btn-danger"
                     >
                         Выйти из аккаунта
                     </button>
